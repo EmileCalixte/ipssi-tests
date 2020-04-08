@@ -70,8 +70,8 @@ class Calculatrice
 
     public function div(): float
     {
-        if($this->b === 0) {
-            throw new Exception('Operand 2 must be a non-zero number');
+        if($this->b == 0) {
+            throw new \Exception('Operand 2 must be a non-zero number');
         }
 
         return $this->a / $this->b;
