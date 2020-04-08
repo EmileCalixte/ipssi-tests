@@ -1,8 +1,9 @@
 <?php
 
 require('../vendor/autoload.php');
-require('../Calculatrice.php');
-require('../CalculatriceTest.php');
+
+use App\Calculatrice;
+Use Test\CalculatriceTest;
 
 function d(...$values) {
     foreach($values as $value) {
