@@ -12,7 +12,7 @@ use Yii;
  * @property string $lastname
  * @property string|null $phone_number
  */
-class Contact extends \yii\db\ActiveRecord
+class Contact extends \app\components\ActiveRecord
 {
     /**
      * {@inheritdoc}
