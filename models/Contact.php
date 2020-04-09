@@ -18,6 +18,6 @@ class Contact extends databaseModels\Contact
 
     public function setPhoneNumber($phoneNumber): self
     {
-        return $this
+        return $this;
     }
 }
