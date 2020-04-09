@@ -3,6 +3,9 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
+/* Include debug functions */
+require_once(__DIR__.'/functions.php');
+
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -47,7 +50,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                
+
             ],
         ],
     ],
