@@ -9,21 +9,37 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
+    /** @var User $user */
+    private $user;
+
+    public function setUp(): void
+    {
+        $this->user = new User('good@email.com', 'André', 'Gazon', 24);
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->user);
+    }
+
     public function testIsValid()
     {
-        $user = new User('good@email.com', 'André', 'Gazon', 24);
-        $this->assertTrue($user->isValid());
+        $this->assertTrue($this->user->isValid());
 
-        $user = new User('bademail', 'André', 'Gazon', 24);
-        $this->assertFalse($user->isValid());
+        $this->user->setEmail('bademail');
+        $this->assertFalse($this->user->isValid());
+        $this->user->setEmail('good@email.com');
 
-        $user = new User('good@email.com', '', 'Gazon', 24);
-        $this->assertFalse($user->isValid());
+        $this->user->setFirstname('');
+        $this->assertFalse($this->user->isValid());
+        $this->user->setFirstname('André');
 
-        $user = new User('good@email.com', 'André', '', 24);
-        $this->assertFalse($user->isValid());
+        $this->user->setLastname('');
+        $this->assertFalse($this->user->isValid());
+        $this->user->setLastname('Gazon');
 
-        $user = new User('good@email.com', 'André', 'Gazon', 11);
-        $this->assertFalse($user->isValid());
+        $this->user->setAge(11);
+        $this->assertFalse($this->user->isValid());
+        $this->user->setAge(24);
     }
 }
