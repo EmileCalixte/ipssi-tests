@@ -13,9 +13,6 @@ class ContactTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-    /** @var Contact */
-    private $contact;
-
     /** @var Transaction */
     private $transaction;
     
