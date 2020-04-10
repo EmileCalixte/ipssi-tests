@@ -2,8 +2,6 @@
 
 use app\models\Contact;
 use app\models\exceptions\MyCustomException;
-use yii\db\ActiveRecord;
-use yii\db\BaseActiveRecord;
 use yii\db\Transaction;
 
 class ContactTest extends \Codeception\Test\Unit
@@ -90,7 +88,7 @@ class ContactTest extends \Codeception\Test\Unit
     {
         $contact = new Contact();
         $this->expectException(MyCustomException::class);
-        $contact->firstname = 'ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes';
+        $contact->firstname = 'ThisStringIsTooLongBecauseItIsSeventyCharactersAndThisIstooMuchOhhYeah';
     }
 
     /**
@@ -130,7 +128,7 @@ class ContactTest extends \Codeception\Test\Unit
     {
         $contact = new Contact();
         $this->expectException(MyCustomException::class);
-        $contact->lastname = 'ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes';
+        $contact->lastname = 'ThisStringIsTooLongBecauseItIsSeventyCharactersAndThisIstooMuchOhhYeah';
     }
 
     /**
