@@ -32,8 +32,8 @@ class ContactTest extends \Codeception\Test\Unit
     public function testSaveOK()
     {
         $contact = new Contact();
-        $contact->setFirstname('Firstname');
-        $contact->setLastname('Lastname');
+        $contact->firstname = 'Firstname';
+        $contact->lastname = 'Lastname';
         $this->assertTrue($contact->save());
         $this->assertNotNull($contact->id);
         $this->assertInstanceOf(Contact::class, Contact::findOne(['id' => $contact->id]));
@@ -45,7 +45,7 @@ class ContactTest extends \Codeception\Test\Unit
     public function testSaveKONoFirstname()
     {
         $contact = new Contact();
-        $contact->setLastname('Lastname');
+        $contact->lastname = 'Lastname';
         $this->assertFalse($contact->save());
     }
 
@@ -55,7 +55,7 @@ class ContactTest extends \Codeception\Test\Unit
     public function testSaveKONoLastname()
     {
         $contact = new Contact();
-        $contact->setFirstname('Firstname');
+        $contact->firstname = 'Firstname';
         $this->assertFalse($contact->save());
     }
 
@@ -65,7 +65,7 @@ class ContactTest extends \Codeception\Test\Unit
     public function testSetFirstnameOK()
     {
         $contact = new Contact();
-        $contact->setFirstname('Firstname');
+        $contact->firstname = 'Firstname';
         $this->assertEquals('Firstname', $contact->firstname);
     }
 
@@ -76,7 +76,7 @@ class ContactTest extends \Codeception\Test\Unit
     {
         $contact = new Contact();
         $this->expectException(MyCustomException::class);
-        $contact->setFirstname('ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes');
+        $contact->firstname = 'ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes';
     }
 
     /**
@@ -85,7 +85,7 @@ class ContactTest extends \Codeception\Test\Unit
     public function testSetLastnameOK()
     {
         $contact = new Contact();
-        $contact->setLastname('Lastname');
+        $contact->lastname = 'Lastname';
         $this->assertEquals('Lastname', $contact->lastname);
     }
 
@@ -96,8 +96,8 @@ class ContactTest extends \Codeception\Test\Unit
     {
         $contact = new Contact();
         $this->expectException(MyCustomException::class);
-        $contact->setLastname('ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes');
+        $contact->lastname = 'ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes';
     }
 
-    // TODO Phone number tests
+    // TODO Phone number and email tests
 }
