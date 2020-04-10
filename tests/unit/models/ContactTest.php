@@ -191,5 +191,55 @@ class ContactTest extends \Codeception\Test\Unit
         $contact->email = null;
     }
 
-    // TODO Phone number tests
+    /**
+     * Tests that the phone number setter is working for a France number
+     */
+    public function testSetPhoneNumberOKFrance()
+    {
+        $contact = new Contact();
+        $contact->phone_number = '+33612345678';
+        $this->assertEquals('+33612345678', $contact->phone_number);
+    }
+
+    /**
+     * Tests that the phone number setter is working for a United States number
+     */
+    public function testSetPhoneNumberOKUnitedStates()
+    {
+        $contact = new Contact();
+        $contact->phone_number = '+1 510-532-5184';
+        $this->assertEquals('+1 510-532-5184', $contact->phone_number);
+    }
+
+    /**
+     * Tests that the phone number can be set to null
+     */
+    public function testSetPhoneNumberToNullOK()
+    {
+        $contact = new Contact();
+        $contact->phone_number = null;
+        $this->assertNull($contact->phone_number);
+    }
+
+    /**
+     * Tests that an invalid phone number cannot be set
+     */
+    public function testSetPhoneNumberKOInvalidString()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->phone_number = 'Not valid';
+    }
+
+    /**
+     * Tests that an invalid phone number cannot be set
+     */
+    public function testSetPhoneNumberKOInvalidPhoneNumber()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->phone_number = '01234';
+    }
+
+
 }
