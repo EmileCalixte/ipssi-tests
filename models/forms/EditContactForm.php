@@ -1,15 +1,17 @@
 <?php
 
+namespace app\models\forms;
+
 
 use borales\extensions\phoneInput\PhoneInputValidator;
 use yii\base\Model;
 
 class EditContactForm extends Model
 {
-    private $email;
-    private $firstname;
-    private $lastname;
-    private $phoneNumber;
+    public $email;
+    public $firstname;
+    public $lastname;
+    public $phoneNumber;
 
     public function rules()
     {
@@ -18,8 +20,8 @@ class EditContactForm extends Model
             [['email'], 'string', 'max' => 255],
             [['email'], 'email'],
             [['firstname', 'lastname'], 'string', 'max' => 64],
-            [['phone_number'], 'string', 'max' => 16],
-            [['phone_number'], PhoneInputValidator::class],
+            [['phoneNumber'], 'string', 'max' => 16],
+            [['phoneNumber'], PhoneInputValidator::class],
         ];
     }
 }

@@ -2,9 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Contact;
+use app\models\forms\EditContactForm;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\MethodNotAllowedHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -61,7 +66,93 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $contacts = Contact::find()->orderBy(['email' => SORT_ASC])->all();
+
+        return $this->render('index', [
+            'contacts' => $contacts,
+        ]);
+    }
+
+    public function actionCreateContact()
+    {
+        $model = new EditContactForm();
+
+        if(Yii::$app->request->isPost && $model->load($_POST) && $model->validate()) {
+            $contact = new Contact();
+            $contact->email = $model->email;
+            $contact->firstname = $model->firstname;
+            $contact->lastname = $model->lastname;
+            $contact->phone_number = $model->phoneNumber;
+            if($contact->save()) {
+                Yii::$app->session->setFlash('success', 'Contact successfully created');
+                return $this->redirect('/');
+            }
+
+            Yii::$app->session->setFlash('error', 'An error occurred while creating this contact');
+        }
+
+        return $this->render('edit-contact', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditContact($id)
+    {
+        $contact = Contact::findOne(['id' => $id]);
+
+        if(is_null($contact)) {
+            throw new NotFoundHttpException('Contact not found');
+        }
+
+        $model = new EditContactForm();
+
+        $model->email = $contact->email;
+        $model->firstname = $contact->firstname;
+        $model->lastname = $contact->lastname;
+        $model->phoneNumber = $contact->phone_number;
+
+        if(Yii::$app->request->isPost && $model->load($_POST) && $model->validate()) {
+            $contact->email = $model->email;
+            $contact->firstname = $model->firstname;
+            $contact->lastname = $model->lastname;
+            $contact->phone_number = $model->phoneNumber;
+            if($contact->save()) {
+                Yii::$app->session->setFlash('success', 'Contact successfully edited');
+                return $this->redirect('/');
+            }
+
+            Yii::$app->session->setFlash('error', 'An error occurred while saving this contact');
+        }
+
+        return $this->render('edit-contact', [
+            'model' => $model,
+            'contact' => $contact,
+        ]);
+    }
+
+    public function actionDeleteContact()
+    {
+        if(!Yii::$app->request->isPost) {
+            throw new MethodNotAllowedHttpException();
+        }
+
+        if(!isset($_POST['contactId'])) {
+            throw new BadRequestHttpException();
+        }
+
+        $contact = Contact::findOne(['id' => $_POST['contactId']]);
+
+        if(is_null($contact)) {
+            throw new NotFoundHttpException('Contact not found');
+        }
+
+        if($contact->delete()) {
+            Yii::$app->session->setFlash('success', 'Contact deleted');
+        } else {
+            Yii::$app->session->setFlash('error', 'An error occurred while deleting this contact');
+        }
+
+        return $this->redirect('/');
     }
 
     /**
@@ -83,6 +174,7 @@ class SiteController extends Controller
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
+            'contact' => null,
         ]);
     }
 
