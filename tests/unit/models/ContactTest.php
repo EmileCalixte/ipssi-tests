@@ -80,6 +80,26 @@ class ContactTest extends \Codeception\Test\Unit
     }
 
     /**
+     * Tests that an empty firstname cannot be set
+     */
+    public function testSetFirstnameKOEmpty()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->firstname = '';
+    }
+
+    /**
+     * Tests that a firstname cannot be set to null
+     */
+    public function testSetFirstnameKONull()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->firstname = null;
+    }
+
+    /**
      * Tests that the lastname setter is working
      */
     public function testSetLastnameOK()
@@ -97,6 +117,26 @@ class ContactTest extends \Codeception\Test\Unit
         $contact = new Contact();
         $this->expectException(MyCustomException::class);
         $contact->lastname = 'ThisStringIsTooLongBecauseItIsSeventeenCharactersAndThisIsTooMuchOhYes';
+    }
+
+    /**
+     * Tests that an empty lastname cannot be set
+     */
+    public function testSetLastnameKOEmpty()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->lastname = '';
+    }
+
+    /**
+     * Tests that a lastname cannot be set to null
+     */
+    public function testSetLastnameKONull()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->lastname = null;
     }
 
     // TODO Phone number and email tests
