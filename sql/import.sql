@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : database
--- Généré le : jeu. 09 avr. 2020 à 15:28
+-- Généré le : ven. 10 avr. 2020 à 07:27
 -- Version du serveur :  10.4.11-MariaDB-1:10.4.11+maria~bionic
 -- Version de PHP : 7.4.4
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `contact` (
   `id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `firstname` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_number` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL
