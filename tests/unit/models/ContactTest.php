@@ -34,6 +34,7 @@ class ContactTest extends \Codeception\Test\Unit
         $contact = new Contact();
         $contact->firstname = 'Firstname';
         $contact->lastname = 'Lastname';
+        $contact->email = 'sample@example.com';
         $this->assertTrue($contact->save());
         $this->assertNotNull($contact->id);
         $this->assertInstanceOf(Contact::class, Contact::findOne(['id' => $contact->id]));
@@ -46,6 +47,7 @@ class ContactTest extends \Codeception\Test\Unit
     {
         $contact = new Contact();
         $contact->lastname = 'Lastname';
+        $contact->email = 'sample@example.com';
         $this->assertFalse($contact->save());
     }
 
@@ -56,6 +58,18 @@ class ContactTest extends \Codeception\Test\Unit
     {
         $contact = new Contact();
         $contact->firstname = 'Firstname';
+        $contact->email = 'sample@example.com';
+        $this->assertFalse($contact->save());
+    }
+
+    /**
+     * Tests that a contact with no email cannot be saved
+     */
+    public function testSaveKONoEmail()
+    {
+        $contact = new Contact();
+        $contact->firstname = 'Firstname';
+        $contact->lastname = 'Lastname';
         $this->assertFalse($contact->save());
     }
 
@@ -139,5 +153,45 @@ class ContactTest extends \Codeception\Test\Unit
         $contact->lastname = null;
     }
 
-    // TODO Phone number and email tests
+    /**
+     * Tests that the email setter is working
+     */
+    public function testSetEmailOK()
+    {
+        $contact = new Contact();
+        $contact->email = 'sample@example.com';
+        $this->assertEquals('sample@example.com', $contact->email);
+    }
+
+    /**
+     * Tests that an invalid email cannot be set
+     */
+    public function testSetEmailKOInvalid()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->email = 'invalid.email';
+    }
+
+    /**
+     * Tests that an empty email cannot be set
+     */
+    public function testSetEmailKOEmpty()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->email = '';
+    }
+
+    /**
+     * Tests that a email cannot be set to null
+     */
+    public function testSetEmailKONull()
+    {
+        $contact = new Contact();
+        $this->expectException(MyCustomException::class);
+        $contact->email = null;
+    }
+
+    // TODO Phone number tests
 }
