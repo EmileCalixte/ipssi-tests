@@ -20,3 +20,9 @@ You should access to:
 ```bash
 php vendor/bin/codecept run unit   
 ```
+
+### Functional tests
+
+```bash
+php vendor/bin/codecept run functional
+```
