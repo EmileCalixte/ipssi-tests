@@ -4,6 +4,7 @@
 
 ```bash
 docker-compose up
+docker-compose exec web composer install
 ```
 
 You should access to:
